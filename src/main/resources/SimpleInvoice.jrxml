@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SimpleInvoice" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e115bc59-fd0f-446b-a585-04725e27d7f0">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGJfdGlrZXRfYmlvc2tvcC5maWxtcyBBUyAsMzM0LDEyMiw4NGEwMzRiYS0xZjI0LTRhYTEtODgz
+ZC01ZjkzNGQ0YzQwZDY7ZGJfdGlrZXRfYmlvc2tvcC51c2VycyBBUyAsMTksMTIsMDI3ZTllMGYt
+NTY5MS00Y2E5LThmNmQtNDkxOTA3MWVhYmM1O2RiX3Rpa2V0X2Jpb3Nrb3Auc2VhdHMgQVMgLDM0
+LDEzMiw5MDljMjUxNC1kYzllLTQ2ZmMtYWIzMS03NjQ2OGFhOTU1MTg7ZGJfdGlrZXRfYmlvc2tv
+cC5yZXNlcnZhdGlvbiBBUyAsMTcyLDMsYmIxMTc1OTYtNmY3OS00MjRlLTk4YTYtMTY1YzdiNjY4
+ZjhlO2RiX3Rpa2V0X2Jpb3Nrb3Auc2NoZWR1bGVzIEFTICwxODQsMTI5LDljZDEzZTRkLTE5YTkt
+NDJjZC1hOTA0LWQ2NjQwZDUwZTFlYTs=]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_tiket_bioskop"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT db_tiket_bioskop.reservation.id_reservation,
+	db_tiket_bioskop.reservation.username,
+	db_tiket_bioskop.films.film_name,
+	db_tiket_bioskop.schedules.tanggal_tayang,
+	db_tiket_bioskop.seats.no,
+	db_tiket_bioskop.seats.studio_name
+FROM db_tiket_bioskop.seats
+	INNER JOIN db_tiket_bioskop.reservation ON
+	 db_tiket_bioskop.seats.id_reservation = db_tiket_bioskop.reservation.id_reservation
+	INNER JOIN db_tiket_bioskop.schedules ON
+	 db_tiket_bioskop.reservation.schedule_id = db_tiket_bioskop.schedules.schedule_id
+	INNER JOIN db_tiket_bioskop.users ON
+	 db_tiket_bioskop.reservation.username = db_tiket_bioskop.users.username
+	INNER JOIN db_tiket_bioskop.films ON
+	 db_tiket_bioskop.schedules.film_code = db_tiket_bioskop.films.film_code]]>
+	</queryString>
+	<field name="idReservation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idReservation"/>
+		<property name="com.jaspersoft.studio.field.label" value="idReservation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservation"/>
+	</field>
+	<field name="username" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="username"/>
+		<property name="com.jaspersoft.studio.field.label" value="username"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservation"/>
+	</field>
+	<field name="filmName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="filmName"/>
+		<property name="com.jaspersoft.studio.field.label" value="filmName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="films"/>
+	</field>
+	<field name="tanggalTayang" class="java.time.LocalDate">
+		<property name="com.jaspersoft.studio.field.name" value="tanggalTayang"/>
+		<property name="com.jaspersoft.studio.field.label" value="tanggalTayang"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="no"/>
+		<property name="com.jaspersoft.studio.field.label" value="no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="seats"/>
+	</field>
+	<field name="studioName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="studioName"/>
+		<property name="com.jaspersoft.studio.field.label" value="studioName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="seats"/>
+	</field>
+	<background>
+		<band height="575" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="475" width="105" height="100" backcolor="#666666" uuid="6eb7cb61-0dd7-47a8-8475-5fa6c3a348dc"/>
+				<textField>
+					<reportElement style="Column header" x="0" y="0" width="104" height="73" forecolor="#000000" uuid="db8457c8-99e9-434f-b439-2d400dff2bcd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="58" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="0" y="77" width="104" height="20" forecolor="#000000" uuid="e20c8a65-aded-41dc-a107-108a9159af99"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center">
+						<font size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF" uuid="db6d7ead-4383-4f8c-81cf-1e3064eb6924"/>
+				</line>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="802" height="67" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="54" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Invoice Ticket]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="232" y="67" width="568" height="37" uuid="862cb50c-5a5e-4906-a495-226e25115fb6"/>
+				<textElement textAlignment="Right">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Bukti Invoice]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="705" height="20" backcolor="#666666" uuid="35d90a9b-bb7e-4ec4-bfa2-68be1967d6b2"/>
+				<staticText>
+					<reportElement style="Column header" x="0" y="0" width="117" height="15" uuid="05b6b94c-58da-42f5-9dee-00d073dca94e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d76650bf-279e-40b0-b915-855a2e1cdf59"/>
+					</reportElement>
+					<text><![CDATA[idReservation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="117" y="0" width="117" height="15" uuid="4eb2fae2-2b6a-4a35-8c51-c915d9a04905">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2b9d6be-88d3-43be-aa02-7250ba4ac036"/>
+					</reportElement>
+					<text><![CDATA[username]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="234" y="0" width="117" height="15" uuid="36bb4340-ec0c-4aef-b22a-5311bf5fada5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac688072-cdec-4505-915d-fd4a059f8929"/>
+					</reportElement>
+					<text><![CDATA[filmName]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="351" y="0" width="117" height="15" uuid="b73ccb56-6f92-45e6-8ee4-a8b8d50d29ff">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4541d8a9-b4f6-4d1f-8701-ad187cc97353"/>
+					</reportElement>
+					<text><![CDATA[tanggalTayang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="468" y="0" width="117" height="15" uuid="3d8f56cf-81d5-406a-9fc1-0fd8c967e169">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69144c3c-36cd-4c45-a314-10576c821da1"/>
+					</reportElement>
+					<text><![CDATA[no kursi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="585" y="0" width="117" height="15" uuid="0bbabff3-12ad-43b4-9cd0-e40683940859">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcb39b30-79ee-4cbd-8728-930d163444db"/>
+					</reportElement>
+					<text><![CDATA[studioName]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement x="97" y="1" width="705" height="15" uuid="89a3da05-fdde-4ffe-965f-cc476f72e3ab"/>
+				<textField>
+					<reportElement style="Detail" x="0" y="0" width="117" height="15" uuid="23ca2e40-a2d4-4282-a6e3-0b53e18fc030">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d76650bf-279e-40b0-b915-855a2e1cdf59"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{idReservation}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="117" y="0" width="117" height="15" uuid="d2fbc0ef-8495-4542-9408-96932f5e41c9">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2b9d6be-88d3-43be-aa02-7250ba4ac036"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="234" y="0" width="117" height="15" uuid="4a3b3c0f-d61d-4569-8df9-3f5d93944c5e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac688072-cdec-4505-915d-fd4a059f8929"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{filmName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="351" y="0" width="117" height="15" uuid="810fb257-74fa-4f15-98b9-306ed5e6ed50">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4541d8a9-b4f6-4d1f-8701-ad187cc97353"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{tanggalTayang}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="468" y="0" width="117" height="15" uuid="fe123edd-0606-4483-9dd8-3d802a6f6fa6">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69144c3c-36cd-4c45-a314-10576c821da1"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="585" y="0" width="117" height="15" uuid="72c51c89-3300-437a-a7e9-1e7496d7ca18">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fcb39b30-79ee-4cbd-8728-930d163444db"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{studioName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="16" width="705" height="1" uuid="e5f21b91-7f24-498e-97a1-0e93db9225a4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="671" y="0" width="131" height="20" forecolor="#000000" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="0" width="267" height="20" uuid="0ec52099-dcd7-42f4-8baa-f3874f05208a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
