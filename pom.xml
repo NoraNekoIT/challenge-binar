@@ -14,7 +14,7 @@
     <name>challenge4</name>
     <description>Challenge 4 binar backend java</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
