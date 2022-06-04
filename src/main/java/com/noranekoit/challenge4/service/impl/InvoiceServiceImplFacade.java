@@ -1,6 +1,13 @@
 package com.noranekoit.challenge4.service.impl;
+
 import com.noranekoit.challenge4.dto.ReservationData;
+import com.noranekoit.challenge4.models.entity.Reservation;
+import com.noranekoit.challenge4.models.entity.Schedules;
+import com.noranekoit.challenge4.models.entity.Users;
+import com.noranekoit.challenge4.payload.request.ReservationRequest;
 import com.noranekoit.challenge4.repository.ReservationRepository;
+import com.noranekoit.challenge4.repository.SchedulesRepository;
+import com.noranekoit.challenge4.repository.UsersRepository;
 import com.noranekoit.challenge4.service.InvoiceServiceFacade;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -13,11 +20,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class InvoiceServiceImplFacade implements InvoiceServiceFacade {
 
-    @Autowired
+    SchedulesRepository schedulesRepository;
+    UsersRepository usersRepository;
     ReservationRepository reservationRepository;
+
+    @Autowired
+    public InvoiceServiceImplFacade(SchedulesRepository schedulesRepository, UsersRepository usersRepository, ReservationRepository reservationRepository) {
+        this.schedulesRepository = schedulesRepository;
+        this.usersRepository = usersRepository;
+        this.reservationRepository = reservationRepository;
+    }
+
+    @Override
+    public String reservationTicket(ReservationRequest reservationRequest) {
+        if ( usersRepository.findById(reservationRequest.getIdUser()).isPresent()
+        && schedulesRepository.findById(reservationRequest.getIdSchedule()).isPresent())
+        {
+            Users user = usersRepository.
+                    findById(reservationRequest.getIdUser()).orElseThrow();
+            Schedules schedule =schedulesRepository.
+                    findById(reservationRequest.getIdSchedule()).orElseThrow();
+            Reservation reservation = new Reservation(
+                    reservationRequest.getIdReservation(),
+                    schedule,
+                    user
+            );
+            reservationRepository.save(reservation);
+            return "berhasil melakukan reservation";
+        }
+        else {
+            return "gagal melakukan reservation";
+        }
+    }
 
     @Override
     public List<ReservationData> getAllInvoices() {
@@ -38,11 +76,9 @@ public class InvoiceServiceImplFacade implements InvoiceServiceFacade {
             JasperExportManager.exportReportToPdfFile(jasperPrint, "src\\main\\resources\\SimpleInvoice.pdf");
             return "Berhasil generate Invoice di src/main/resources/SimpleInvoice.pdf";
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return  "gagal generate Invoice";
+            return "gagal generate Invoice";
         }
-
-
     }
 }

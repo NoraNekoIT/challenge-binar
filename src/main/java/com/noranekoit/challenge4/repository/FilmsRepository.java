@@ -15,6 +15,4 @@ public interface FilmsRepository extends JpaRepository<Films,String> {
     @Query(value = "SELECT f FROM films f WHERE f.statusTayang=true")
     List<Films>findAllByStatusTayang();
 
-
-
 }

@@ -25,5 +25,4 @@ public class ScheduleResponse {
 
         private Films films;
 
-//        private List<Seats> seats;
 }

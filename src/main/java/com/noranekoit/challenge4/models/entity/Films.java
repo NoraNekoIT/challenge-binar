@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,8 +34,5 @@ public class Films {
         this.statusTayang = statusTayang;
     }
 
-    //    @JsonIgnore
-//    @OneToMany(mappedBy = "films")
-//    private List<Seats> seats ;
 
 }

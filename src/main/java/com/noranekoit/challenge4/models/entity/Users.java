@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +36,6 @@ public class Users {
     @Column(name = "password")
     private String password;
 
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_username"),
@@ -48,12 +46,6 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Reservation> reservation;
-
-
-//    @JsonIgnore
-//    @ManyToMany(mappedBy = "reservation")
-//    private Set<Schedules> schedules = new HashSet<>();
-
 
     public Users(@NonNull String username, @NonNull String password, @NonNull String email) {
         this.username = username;

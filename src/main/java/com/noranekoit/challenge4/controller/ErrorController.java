@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErrorController {
     @ExceptionHandler(value ={NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    WebResponse<String> notFound(NotFoundException notFoundException){
-        return new WebResponse(
+    WebResponse<String> notFound(){
+        return new WebResponse<>(
                 404,
                 "Not Found",
                 "Not Found"

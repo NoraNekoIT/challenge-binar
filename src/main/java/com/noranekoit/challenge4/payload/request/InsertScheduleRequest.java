@@ -22,5 +22,4 @@ public class InsertScheduleRequest {
 
     private Films films;
 
-//    private List<Seats> seats;
 }

@@ -20,7 +20,7 @@ import java.util.Set;
 //                                @ColumnResult(name = "jam_selesai", type = Time.class),
                                 @ColumnResult(name = "tanggal_tayang", type = LocalDate.class),
                                 @ColumnResult(name = "film_name"),
-                                @ColumnResult(name = "no"),
+                                @ColumnResult(name = "no_seat"),
                                 @ColumnResult(name= "studio_name")
 
                         }
@@ -29,9 +29,9 @@ import java.util.Set;
 )
 @NamedNativeQuery(
         name = "Reservation.getAllReservation",
-        query = "SELECT DISTINCT r.id_reservation, u.username, s.jam_mulai, s.jam_selesai, s.tanggal_tayang, f.film_name, se.no, se.studio_name  " +
+        query = "SELECT DISTINCT r.id_reservation, u.username, s.jam_mulai, s.jam_selesai, s.tanggal_tayang, f.film_name, se.no_seat, se.studio_name  " +
                 "from reservation r, users u , schedules s, films f,  seats se " +
-                "WHERE r.schedule_id = s.schedule_id AND s.film_code = f.film_code and u.username= r.username and r.id_reservation = se.id_reservation",
+                "WHERE r.schedule_id = s.schedule_id AND s.film_code = f.film_code and u.id= r.id_user and r.id_reservation = se.id_reservation",
         resultSetMapping = "reservationMapping",
         resultClass = ReservationData.class
 )
@@ -47,7 +47,7 @@ public class Reservation {
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "id_user")
     private Users users;
 
     @JsonIgnore
@@ -57,6 +57,16 @@ public class Reservation {
 
     @JsonIgnore
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Seats> seats ;
 
+    public Reservation(String idReservation,  Schedules schedules, Users users) {
+        this.idReservation = idReservation;
+        this.users = users;
+        this.schedules = schedules;
+    }
+
+    public Reservation() {
+
+    }
 }

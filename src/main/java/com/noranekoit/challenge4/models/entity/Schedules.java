@@ -8,10 +8,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Set;
 
-//@Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString
 @Getter
 @Setter
 @Entity(name = "schedules")
@@ -20,15 +18,6 @@ public class Schedules {
     @Id
     @Column(name = "schedule_id",unique = true)
     private String scheduleId;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "reservation",
-//            joinColumns = @JoinColumn(name = "schedule_id"),
-//            inverseJoinColumns = @JoinColumn(name = "username")
-//    )
-//    public
-//    Set<Users> reservation = new HashSet<>();
 
     @Column(name = "jam_mulai")
     private Time jamMulai;
@@ -59,8 +48,5 @@ public class Schedules {
         this.hargaTiket = hargaTiket;
         this.films = films;
     }
-
-    //    @OneToMany(mappedBy = "schedules")
-//    private List<Seats> seats;
 
 }

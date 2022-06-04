@@ -23,7 +23,7 @@ public class SeatsIdentity implements Serializable {
     private String studioName;
 
     @NonNull
-    @Column(name = "no")
-    private String no;
+    @Column(name = "no_seat")
+    private String noSeat;
 
 }

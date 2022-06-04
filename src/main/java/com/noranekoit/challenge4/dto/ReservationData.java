@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public class ReservationData {
     private String idReservation;
     private String username;
-//    private Time jamMulai;
-//    private Time jamSelesai;
+
     private LocalDate tanggalTayang;
     private String filmName;
     private String no;
