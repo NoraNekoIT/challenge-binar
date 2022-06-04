@@ -41,9 +41,9 @@ public class InvoiceServiceImplFacade implements InvoiceServiceFacade {
         && schedulesRepository.findById(reservationRequest.getIdSchedule()).isPresent())
         {
             Users user = usersRepository.
-                    findById(reservationRequest.getIdUser()).orElseThrow();
+                    findById(reservationRequest.getIdUser()).orElseThrow(NullPointerException::new);
             Schedules schedule =schedulesRepository.
-                    findById(reservationRequest.getIdSchedule()).orElseThrow();
+                    findById(reservationRequest.getIdSchedule()).orElseThrow(NullPointerException::new);
             Reservation reservation = new Reservation(
                     reservationRequest.getIdReservation(),
                     schedule,
