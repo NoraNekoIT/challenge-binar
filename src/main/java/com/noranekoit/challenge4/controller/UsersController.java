@@ -33,6 +33,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -89,8 +90,9 @@ public class UsersController {
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(new UserInfoResponse(userDetails.getId(),
@@ -124,23 +126,25 @@ public class UsersController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin" -> {
+                    case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role ADMIN is not found."));
                         roles.add(adminRole);
-                    }
-                    case "cus" -> {
+
+                        break;
+                    case "cus":
                         Role modRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role CUSTOMER is not found."));
                         roles.add(modRole);
-                    }
-                    default -> {
+
+                        break;
+                    default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
-                    }
                 }
             });
+
         }
 
         newUser.setRoles(roles);
